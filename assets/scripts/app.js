@@ -9,12 +9,42 @@ class DOMHelper {
         const element = document.getElementById(elementId);
         const destinationElement = document.querySelector(newDestinationSelector);
         destinationElement.append(element); // will be moved
+        element.scrollIntoView({behavior: 'smooth'});
     }
 
 }
-class Tooltip {
-    constructor(closeNotifierFunction) {
+
+class Component {
+    constructor(hostElementId, insertBefore = false) {
+        if (hostElementId) {
+            this.hostElement = document.getElementById(hostElementId);
+        } else {
+            this.hostElement = document.body;
+        }
+        this.insertBefore = insertBefore;
+    }
+
+    detach() {
+        if (this.element) {
+            this.element.remove(); // this refers to subclass
+         //this.element.parentElement.removeChild(this.element); // for older browsers
+        }    
+    }
+
+    attach() {
+       //document.body.append(this.element);
+       this.hostElement.insertAdjacentElement(this.insertBefore ? 'afterbegin' : 'beforeend', this.element);
+    }
+
+}
+
+
+class Tooltip extends Component {
+    constructor(closeNotifierFunction, text, hostElementId) {
+        super(hostElementId);
         this.closeNotifier = closeNotifierFunction;
+        this.text = text;
+        this.create();
     }
 
     closeTooltip = () => { //using arrow function as we don't need to bind this
@@ -22,20 +52,31 @@ class Tooltip {
         this.closeNotifier();
     }
 
-
-
-    detach() {
-         this.element.remove();
-         //this.element.parentElement.removeChild(this.element); // for older browsers
-    }
-
-    attach() {
+    create() {
        const tooltipElement = document.createElement('div');
        tooltipElement.className = 'card';
-       tooltipElement.textContent = 'DUMMY!'
+       const tooltipTemplate = document.getElementById('tooltip');
+       const tooltipBody = document.importNode(tooltipTemplate.content, true);
+       tooltipBody.querySelector('p').textContent = this.text;
+       tooltipElement.append(tooltipBody);
+       
+       //console.log(this.hostElement.getBoundingClientRect());
+       
+       const hostElPosLeft = this.hostElement.offsetLeft;
+       const hostElPosTop = this.hostElement.offsetTop;
+       const hostElHeight = this.hostElement.clientHeight;
+       const parentElementScrolling = this.hostElement.parentElement.scrollTop;
+
+       const x = hostElPosLeft + 20;
+       const y = hostElPosTop + hostElHeight - parentElementScrolling - 10;
+
+       tooltipElement.style.position = 'absolute';
+       tooltipElement.style.left = x + 'px'; //500px
+       tooltipElement.style.top = y + 'px';
+
+   
        tooltipElement.addEventListener('click', this.closeTooltip);
        this.element = tooltipElement
-       document.body.append(tooltipElement);
     }
 }
 
@@ -54,9 +95,13 @@ class ProjectItem {
         if (this.hasActiveTooltip) {
             return;
         }
+        const projectElement = document.getElementById(this.id); // project item id
+        const tooltipText = projectElement.dataset.extraInfo; // using data-extra-info html element
+        //console.log(projectElement.dataset);
+        //projectElement.dataset.someInfo = 'Test';
         const tooltip = new Tooltip(() => {
             this.hasActiveTooltip = false;
-        });
+        }, tooltipText, this.id);
         tooltip.attach();
         this.hasActiveTooltip = true;
 
@@ -65,7 +110,7 @@ class ProjectItem {
     connectMoreInfoButton() {
         const projectItemElement = document.getElementById(this.id);
         const moreInfoBtn = projectItemElement.querySelector('button:first-of-type');// we need first button More Info
-        moreInfoBtn.addEventListener('click', this.showMoreInfoHandler);
+        moreInfoBtn.addEventListener('click', this.showMoreInfoHandler.bind(this)); // bind this to project item
     }
 
     connectSwithButton(type) {
