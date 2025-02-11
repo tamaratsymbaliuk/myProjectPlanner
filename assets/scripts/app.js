@@ -165,8 +165,17 @@ class App {
         const activeProjectList = new ProjectList('active');
         const finishedProjectList = new ProjectList('finished');
         activeProjectList.setSwitchHandlerFunction(finishedProjectList.addProject.bind(finishedProjectList));
-        finishedProjectList.setSwitchHandlerFunction(activeProjectList.addProject.bind(activeProjectList));
+        finishedProjectList.setSwitchHandlerFunction(activeProjectList.addProject.bind(activeProjectList));   
+        
+       // setTimeout(this.startAnalytics, 3000);
 
+    }
+
+    static startAnalytics() {
+        const analyticsScript = document.createElement('script');
+        analyticsScript.src = 'assets/scripts/analytics.js';
+        analyticsScript.defer = true;
+        document.head.append(analyticsScript);
     }
 }
 
