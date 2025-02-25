@@ -11,7 +11,6 @@ class DOMHelper {
         destinationElement.append(element); // will be moved
         element.scrollIntoView({behavior: 'smooth'});
     }
-
 }
 
 class Component {
