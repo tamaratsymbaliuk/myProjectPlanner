@@ -40,20 +40,11 @@ button.addEventListener('click',  event => {
 
 const listItems = document.querySelectorAll('li');
 
-/*listItems.forEach(listItem => {
+listItems.forEach(listItem => {
     listItem.addEventListener('click', event => {
-        event.target.classList.toggle('highlight');
-    });
-});
-*/
-// instead of creating multiple event listeners, better approach would be
-
-const list = document.querySelector('ul');
-list.addEventListener('click', event => {
-        event.target.classList.toggle('highlight');
-        //  event.target.closest('li').classList.toggle('highlight');
-       // form.click() or form.submit();
-    });
+        event.target.
+    })
+})
 
 
 

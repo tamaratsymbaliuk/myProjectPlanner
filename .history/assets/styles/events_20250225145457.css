@@ -43,14 +43,8 @@ button:active {
 li {
   padding: 1rem;
   border: 1px solid #ccc;
-}
 
+}
 ul {
-  list-style: none;
-
-}
-
-.highlight {
-  background-color: red;
-  color: white;
+  
 }
