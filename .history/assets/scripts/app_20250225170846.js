@@ -161,37 +161,15 @@ class ProjectList {
     }
 
     connectDroppable() {
-        const list = document.querySelector(`#${this.type}-projects ul`);
+        const list = document.querySelectorAll(`#${type}-projects ul`);
 
         list.addEventListener('dragenter', event => {
-            if (event.dataTransfer.types[0] === 'text/plain') {
-                list.parentElement.classList.add('droppable');
-                event.preventDefault();
-            }     
+            if (event.)
+            event.preventDefault();
         });
+        list.addEventListener('dragover', event => {});
 
-        list.addEventListener('dragover', event => {
-            if (event.dataTransfer.types[0] === 'text/plain') {
-                event.preventDefault();
-            }
-        });
 
-        list.addEventListener('dragleave', event => {
-            if (event.relatedTarget.closest(`#${this.type}-projects ul`) !== list) { // only if not in the list remove droppable
-                list.parentElement.classList.remove('droppable');
-            }    
-        });
-
-        list.addEventListener('drop', event => {
-            const prjId = event.dataTransfer.getData('text/plain');
-            if (this.projects.find(p => p.id === prjId)) { // if the project id is in the list it was part of we don't want to drop it
-                return;
-            }
-
-            document.getElementById(prjId).querySelector('button:last-of-type').click();
-            list.parentElement.classList.remove('droppable');
-            //event.preventDefault(); // not required
-        });
     }
 
     switchProject(projectId) {

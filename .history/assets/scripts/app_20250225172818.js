@@ -182,16 +182,9 @@ class ProjectList {
             }    
         });
 
-        list.addEventListener('drop', event => {
-            const prjId = event.dataTransfer.getData('text/plain');
-            if (this.projects.find(p => p.id === prjId)) { // if the project id is in the list it was part of we don't want to drop it
-                return;
-            }
+        list.addEventListener
 
-            document.getElementById(prjId).querySelector('button:last-of-type').click();
-            list.parentElement.classList.remove('droppable');
-            //event.preventDefault(); // not required
-        });
+
     }
 
     switchProject(projectId) {
