@@ -37,7 +37,6 @@ class Component {
 
 }
 
-
 class Tooltip extends Component {
     constructor(closeNotifierFunction, text, hostElementId) {
         super(hostElementId);
