@@ -34,7 +34,6 @@ class Component {
        //document.body.append(this.element);
        this.hostElement.insertAdjacentElement(this.insertBefore ? 'afterbegin' : 'beforeend', this.element);
     }
-
 }
 
 class Tooltip extends Component {
