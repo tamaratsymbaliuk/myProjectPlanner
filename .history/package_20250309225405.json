@@ -1,0 +1,30 @@
+{
+  "name": "myprojectplanner",
+  "version": "1.0.0",
+  "description": "JS - guide",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "build:dev": "webpack-dev-server",
+    "build:prod": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tamaratsymbaliuk/myProjectPlanner.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tamaratsymbaliuk/myProjectPlanner/issues"
+  },
+  "homepage": "https://github.com/tamaratsymbaliuk/myProjectPlanner#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.21.0",
+    "eslint": "^9.21.0",
+    "globals": "^16.0.0",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.0"
+  }
+}
