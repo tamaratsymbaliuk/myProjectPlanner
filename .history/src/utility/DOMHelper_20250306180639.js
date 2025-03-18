@@ -12,6 +12,7 @@ export class DOMHelper {
     element.scrollIntoView({ behavior: "smooth" });
   }
 }
+
   export function clearEventListeners(element) {
     const clonedElement = element.cloneNode(true);
     element.replaceWith(clonedElement);
