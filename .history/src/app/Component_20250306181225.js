@@ -14,6 +14,7 @@ export default class Component {
       //this.element.parentElement.removeChild(this.element); // for older browsers
     }
   }
+
   attach() {
     //document.body.append(this.element);
     this.hostElement.insertAdjacentElement(
